@@ -1,6 +1,8 @@
 <%- include("partials/header.ejs") %>
-<%- include("partials/backHome.ejs") %>
+
 <body>
+  <%- include("partials/backHome.ejs") %>
+
   <h1>Add Quote</h1>
 
   <% if (message) { %>
@@ -8,7 +10,6 @@
   <% } %>
 
   <form method="POST" action="/quote/new">
-
     Quote:
     <input type="text" name="quote" size="80" required>
     <br><br>
@@ -24,14 +25,18 @@
     <br><br>
 
     Category:
-    <input type="text" name="category" required>
+    <select name="category" required>
+      <% for (let i = 0; i < categories.length; i++) { %>
+        <option value="<%= categories[i].category %>"><%= categories[i].category %></option>
+      <% } %>
+    </select>
     <br><br>
 
     Likes:
     <input type="number" name="likes" min="0">
     <br><br>
 
-    <button>Add Quote</button>
+    <button type="submit">Add Quote</button>
   </form>
 
   <%- include("partials/footer.ejs") %>

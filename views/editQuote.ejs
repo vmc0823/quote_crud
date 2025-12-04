@@ -22,7 +22,14 @@
     <br><br>
 
     Category:
-    <input type="text" name="category" value="<%= quoteInfo[0].category %>">
+    <select name="category" required>
+      <% for (let i = 0; i < categories.length; i++) { %>
+        <option value="<%= categories[i].category %>"
+          <% if (categories[i].category == quoteInfo[0].category) { %> selected <% } %>>
+          <%= categories[i].category %>
+        </option>
+      <% } %>
+    </select>
     <br><br>
 
     Likes:

@@ -143,14 +143,22 @@ app.get("/quote/edit", async (req, res) => {
     ORDER BY lastName
   `;
 
-  const [[quoteRows], [authorRows]] = await Promise.all([
+  const categoriesSql = `
+    SELECT DISTINCT category
+    FROM q_quotes
+    ORDER BY category
+  `;
+
+  const [[quoteRows], [authorRows], [categoryRows]] = await Promise.all([
     pool.query(quoteSql, [quoteId]),
-    pool.query(authorsSql)
+    pool.query(authorsSql),
+    pool.query(categoriesSql)
   ]);
 
   res.render("editQuote", {
     quoteInfo: quoteRows,   
-    authors: authorRows
+    authors: authorRows,
+    categories: categoryRows
   });
 });
 
@@ -195,8 +203,19 @@ app.get("/quote/new", async (req, res) => {
     FROM q_authors
     ORDER BY lastName
   `;
-  const [authors] = await pool.query(authorsSql);
-  res.render("newQuote", { authors, message: null });
+
+  const categoriesSql = `
+    SELECT DISTINCT category
+    FROM q_quotes
+    ORDER BY category
+  `;
+
+  const [[authors], [categories]] = await Promise.all([
+    pool.query(authorsSql),
+    pool.query(categoriesSql)
+  ]);
+
+  res.render("newQuote", { authors, categories, message: null });
 });
 
 // INSERT new quote (all fields except quoteId)
@@ -211,14 +230,21 @@ app.post("/quote/new", async (req, res) => {
 
   await pool.query(sql, params);
 
-  // reload authors so dropdown still works after submit
-  const [authors] = await pool.query(`
+  // reload authors and categories so dropdown still works after submit
+  const [[authors], [categories]] = await Promise.all([
+  pool.query(`
     SELECT authorId, firstName, lastName
     FROM q_authors
     ORDER BY lastName
-  `);
+  `),
+  pool.query(`
+    SELECT DISTINCT category
+    FROM q_quotes
+    ORDER BY category
+  `)
+]);
 
-  res.render("newQuote", { authors, message: "Quote added!" });
+  res.render("newQuote", { authors, categories, message: "Quote added!" });
 });
 
 // app.get("/dbTest", async(req, res) => {
