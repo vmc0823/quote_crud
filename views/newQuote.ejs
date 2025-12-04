@@ -1,0 +1,39 @@
+<%- include("partials/header.ejs") %>
+<%- include("partials/backHome.ejs") %>
+<body>
+  <h1>Add Quote</h1>
+
+  <% if (message) { %>
+    <p style="color: rgb(172, 191, 0); font-weight: 700;"><%= message %></p>
+  <% } %>
+
+  <form method="POST" action="/quote/new">
+
+    Quote:
+    <input type="text" name="quote" size="80" required>
+    <br><br>
+
+    Author:
+    <select name="authorId" required>
+      <% for (let i = 0; i < authors.length; i++) { %>
+        <option value="<%= authors[i].authorId %>">
+          <%= authors[i].lastName %>, <%= authors[i].firstName %>
+        </option>
+      <% } %>
+    </select>
+    <br><br>
+
+    Category:
+    <input type="text" name="category" required>
+    <br><br>
+
+    Likes:
+    <input type="number" name="likes" min="0">
+    <br><br>
+
+    <button>Add Quote</button>
+  </form>
+
+  <%- include("partials/footer.ejs") %>
+</body>
+</html>

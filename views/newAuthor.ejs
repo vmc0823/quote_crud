@@ -1,0 +1,46 @@
+<%- include("partials/header.ejs") %>
+<%- include("partials/backHome.ejs") %>
+<h1>Adding a new Author</h1>
+
+    <form method="POST" action="/author/new">
+      First Name:
+      <input type="text" name="fName">
+      <br>
+      Last Name:
+      <input type="text" name="lName">
+      <br>
+      Date of Birth:
+      <input type="date" name="birthDate">
+      <br>  
+      Date of Death (optional):
+      <input type="date" name="birthDeath">
+      <br>
+      Sex:
+      <label><input type="radio" name="sex" value="M" required> Male</label>
+      <label><input type="radio" name="sex" value="F" required> Female</label>
+      <br>
+      Profession:
+      <input type="text" name="profession" required>
+      <br>
+      Country:
+      <input type="text" name="country" required>
+      <br>
+      Portrait URL:
+      <input type="url" name="portrait" required size="70">
+      <br>
+      Biography:
+      <textarea name="biography" rows="5" cols="70" required></textarea>
+      <br><br>
+      <button>Add Author</button>
+    </form>
+
+    <% if (typeof message != "undefined"){ %>
+    <h3><p style="color: rgb(172, 191, 0);"><%=message%></p></h3>
+    <% } %>
+
+<%- include("partials/footer.ejs") %>
+
+</body>
+
+</html>
+

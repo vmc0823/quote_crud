@@ -1,0 +1,37 @@
+<%- include("partials/header.ejs") %>
+<%- include("partials/backHome.ejs") %>
+<body>
+  <h1>Updating Quote</h1>
+
+  <form method="POST" action="/quote/edit">
+    <input type="hidden" name="quoteId" value="<%= quoteInfo[0].quoteId %>">
+
+    Quote:
+    <input type="text" name="quote" value="<%= quoteInfo[0].quote %>" size="80">
+    <br><br>
+
+    Author:
+    <select name="authorId">
+      <% for (let i = 0; i < authors.length; i++) { %>
+        <option value="<%= authors[i].authorId %>"
+          <% if (authors[i].authorId == quoteInfo[0].authorId) { %> selected <% } %>>
+          <%= authors[i].lastName %>, <%= authors[i].firstName %>
+        </option>
+      <% } %>
+    </select>
+    <br><br>
+
+    Category:
+    <input type="text" name="category" value="<%= quoteInfo[0].category %>">
+    <br><br>
+
+    Likes:
+    <input type="number" name="likes" value="<%= quoteInfo[0].likes %>">
+    <br><br>
+
+    <button>Update Quote</button>
+  </form>
+
+  <%- include("partials/footer.ejs") %>
+</body>
+</html>

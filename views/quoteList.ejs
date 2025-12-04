@@ -1,0 +1,20 @@
+<%- include("partials/header.ejs") %>
+<%- include("partials/backHome.ejs") %>
+<body>
+  <h1>Update/Delete Quotes</h1>
+
+  <% for (let i = 0; i < quotes.length; i++) { %>
+    <a href="/quote/edit?quoteId=<%= quotes[i].quoteId %>">UPDATE</a>
+    <a href="/quote/delete?quoteId=<%= quotes[i].quoteId %>"
+       onclick="return confirm('Delete this quote?')">DELETE</a>
+
+    <strong>(<%= quotes[i].quoteId %>)</strong>
+    "<%= quotes[i].quote %>"
+    — <%= quotes[i].firstName %> <%= quotes[i].lastName %>
+    [<%= quotes[i].category %>] Likes: <%= quotes[i].likes %>
+    <br><br>
+  <% } %>
+
+  <%- include("partials/footer.ejs") %>
+</body>
+</html>

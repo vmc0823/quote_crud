@@ -1,0 +1,34 @@
+<%- include("partials/header.ejs") %>
+
+<body>
+  <div class="admin-page">
+  <div class="admin-card">
+
+ <h1> Famous Quotes - Admin Section </h1>
+
+    <div class="actions">
+    <form action="/author/new">
+    <button type="submit">Add Authors</button>
+    </form><br>
+
+    <form action="/quote/new">
+    <button type="submit">Add Quotes</button>
+    </form><br>
+
+    <form action="/authors">
+    <button type="submit">List Authors</button>
+    </form><br>
+
+    <form action="/quotes">
+    <button type="submit">List Quotes</button>
+    </form>
+    </div>
+  </div>
+</div>
+
+
+<%- include("partials/footer.ejs") %>
+
+</body>
+
+</html>
